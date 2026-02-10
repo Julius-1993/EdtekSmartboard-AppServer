@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node api/index.js",
     "dev": "nodemon api/index.js",
-    "build": "npm install && npm install --prefix EdtekSmatboard-App && npm run build --prefix EdtekSmatboard-App"
+    "build": ""
   },
   "keywords": [],
   "author": "",
