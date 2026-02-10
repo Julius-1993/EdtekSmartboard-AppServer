@@ -1,0 +1,28 @@
+{
+  "name": "edteksmartboard-app",
+  "version": "1.0.0",
+  "description": "This app was created for the education projection purpose and it is a edteksmartboard web app\r cors \r dotenv \r express\r jsonwebtoken\r mongodb\r mongoose\r nodemon\"# Ba\" \r \"# Edtekinteractive-smartboad\" \r \"# Edtekinteractive-App\"",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node api/index.js",
+    "dev": "nodemon api/index.js",
+    "build": "npm install && npm install --prefix EdtekSmatboard-App && npm run build --prefix EdtekSmatboard-App"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.8.0",
+    "mongoose": "^8.5.2",
+    "nodemon": "^3.1.4",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
+    "stripe": "^16.6.0"
+  }
+}
