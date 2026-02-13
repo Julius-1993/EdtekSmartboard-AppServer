@@ -16,6 +16,7 @@ import { Server as SocketServer } from "socket.io";
 dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
 
 app.use(cors());
@@ -76,6 +77,9 @@ io.on("connection", (socket) => {
 });
 
 // ------------------ START SERVER ------------------
-server.listen(3000, () => {
-  console.log("Server started on Port 3000");
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
+// server.listen(3000, () => {
+//   console.log("Server started on Port 3000");
+// });
