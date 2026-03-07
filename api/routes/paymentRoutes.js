@@ -64,10 +64,11 @@ router.put("/approve/:id", verifyToken, verifyAdmin, async (req, res) => {
     }
     result.status = 'Approved';
     await result.save();
-    res.status(200).json(result);
+    res.status(200).json(result); 
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
+
 
 export default router;

@@ -12,6 +12,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import http from "http";
 import { Server as SocketServer } from "socket.io";
+import axios from "axios";
 
 dotenv.config();
 
@@ -20,7 +21,7 @@ const PORT = process.env.PORT || 5000;
 
 
 app.use(cors({
-  origin: "*",
+  origin: "https://edteksmartboard.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,}));
@@ -44,30 +45,50 @@ app.post("/jwt", async (req, res) => {
 });
 
 
+app.get("/verify-paystack/:reference", async (req, res) => {
+
+  const reference = req.params.reference;
+
+  try {
+
+    const response = await axios.get(
+      `https://api.paystack.co/transaction/verify/${reference}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+        },
+      }
+    );
+
+    res.send(response.data);
+
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+app.post("/paystack-webhook", express.json(), async (req, res) => {
+
+  const event = req.body;
+
+  if (event.event === "charge.success") {
+
+    const paymentData = event.data;
+
+    console.log("Payment received:", paymentData.reference);
+
+  }
+
+  res.sendStatus(200);
+});
+
+
 app.use("/users", userRoutes);
 app.use("/menu", menuRoutes);
 app.use("/carts", cartRoutes);
 app.use("/payments", paymentRoutes);
 app.use("/dashboard-data", dashboardRoutes);
 app.use("/notifications", notificationRoutes);
-
-app.post("/create-payment-intent", async (req, res) => {
-  const { price } = req.body;
-  const amount = price * 100;
-
-  // Create a PaymentIntent with the order amount and currency
-  const paymentIntent =
-    await stripe.process.env.STRIPE_SECRET_KEY.paymentIntents.create({
-      amount: amount,
-      currency: "NGN",
-
-      payment_method_types: ["card"],
-    });
-
-  res.send({
-    clientSecret: paymentIntent.client_secret,
-  });
-});
 
 const server = http.createServer(app);
 const io = new SocketServer(server, {
