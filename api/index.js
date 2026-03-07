@@ -23,12 +23,6 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 
-// app.use(cors({
-//   origin: "https://edteksmartboard-ivn0.onrender.com",
-//   credentials: true
-// }));
-
-
 mongoose
   .connect(
     `mongodb+srv://${process.env.DB_USER}:${process.env.DB_USER_PASSWORD}@cluster0.qktbuuz.mongodb.net/`
@@ -52,6 +46,24 @@ app.use("/carts", cartRoutes);
 app.use("/payments", paymentRoutes);
 app.use("/dashboard-data", dashboardRoutes);
 app.use("/notifications", notificationRoutes);
+
+app.post("/create-payment-intent", async (req, res) => {
+  const { price } = req.body;
+  const amount = price * 100;
+
+  // Create a PaymentIntent with the order amount and currency
+  const paymentIntent =
+    await stripe.process.env.STRIPE_SECRET_KEY.paymentIntents.create({
+      amount: amount,
+      currency: "NGN",
+
+      payment_method_types: ["card"],
+    });
+
+  res.send({
+    clientSecret: paymentIntent.client_secret,
+  });
+});
 
 const server = http.createServer(app);
 const io = new SocketServer(server, {
