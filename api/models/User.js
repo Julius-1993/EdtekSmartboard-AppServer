@@ -9,6 +9,13 @@ const userSchema = new mongoose.Schema({
         minlength: 3
     },
     photoURL: String,
+    firebaseUID:{
+        type: String,
+    },
+    address:{
+        type: String
+    },
+    
     role: {
         type: String,
         enum: ['user', 'admin'],
