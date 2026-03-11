@@ -1,11 +1,11 @@
 import express from 'express'
 import Carts from '../models/Carts.js'
-import {getCartByEmail, addToCart, deleteCart, updateCart,  getSingleCart } from '../controllers/cartControllers.js'
+import {getCartByEmail, addToCart, deleteCart, updateCart,  getSingleCart, clearCartByEmail } from '../controllers/cartControllers.js'
 import verifyToken from '../middleware/verifyToken.js'
 
 const router = express.Router();
 
-
+router.delete("/clear/:email", clearCartByEmail);
 router.get('/', verifyToken, getCartByEmail);
 router.post('/', addToCart);
 router.delete('/:id', deleteCart)

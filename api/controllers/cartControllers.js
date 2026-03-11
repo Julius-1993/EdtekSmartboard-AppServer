@@ -81,3 +81,19 @@ export const getSingleCart = async (req, res) => {
         res.status(500).json({message: error.message});
     }
 };
+
+export const clearCartByEmail = async (req, res) => {
+    const email = req.params.email;
+
+    try {
+        const result = await Carts.deleteMany({ email });
+
+        res.status(200).json({
+            message: "Cart cleared successfully",
+            deletedCount: result.deletedCount
+        });
+
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};

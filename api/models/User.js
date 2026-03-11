@@ -8,11 +8,16 @@ const userSchema = new mongoose.Schema({
         trim: true,
         minlength: 3
     },
+    firebaseUID: {
+        type: String,
+        unique: true,
+        required: true
+    },
     photoURL: String,
-    address:{
+    address: {
         type: String
     },
-    
+
     role: {
         type: String,
         enum: ['user', 'admin'],
@@ -23,7 +28,7 @@ const userSchema = new mongoose.Schema({
         default: Date.now
     }
 
-}, {timestamps: true})
+}, { timestamps: true })
 
 // create a model instance
 const User = mongoose.model('User', userSchema);
