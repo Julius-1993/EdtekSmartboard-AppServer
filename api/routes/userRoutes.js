@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get('/', verifyToken, verifyAdmin,  getAllUsers);
 router.post('/', createUser);
-router.put('/:id', verifyToken, verifyAdmin, updateUser);
+router.put('/:id',  updateUser);
 router.delete('/:id', verifyToken, verifyAdmin, deleteUser);
 router.get("/:email", getUserByEmail);
 router.get('/admin/:email',verifyToken,   getAdmin);
