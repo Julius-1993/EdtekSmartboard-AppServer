@@ -93,3 +93,26 @@ export const getUserByEmail = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// update user details
+export const updateUser = async (req, res) => {
+  const userId = req.params.id;
+  const { name, address, organizationName, photoURL } = req.body;
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { name, address, organizationName, photoURL },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error("Update error:", error);
+    res.status(500).json({ message: error.message });
+  }
+};
