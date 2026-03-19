@@ -10,9 +10,15 @@ const paymentSchema = new Schema({
     type: String,
     default: "pending"
   },
-  itemName: Array,
-  cartItems: Array,
-  menuItems: Array,
+  items: [
+  {
+    name: String,
+    quantity: Number,
+    price: Number,
+    cartId: Schema.Types.ObjectId,
+    menuItemId: Schema.Types.ObjectId
+  }
+],
   createdAt: {
       type: Date,
       default: Date.now
