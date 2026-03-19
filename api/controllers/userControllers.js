@@ -82,3 +82,14 @@ export const makeAdmin = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const getUserByEmail = async (req, res) => {
+  const email = req.params.email;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
