@@ -13,7 +13,6 @@ export const getAllUsers = async (req, res) => {
 // post a new user
 export const createUser = async (req, res) => {
   const user = req.body;
-  console.log("POST /users body:", req.body);
   const query = { email: user.email };
   try {
     const existingUser = await User.findOne(query);
