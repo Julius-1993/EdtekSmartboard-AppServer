@@ -95,12 +95,12 @@ export const getUserByEmail = async (req, res) => {
 
 // update user details
 export const updateUser = async (req, res) => {
-  const userId = req.params.id;
+  const firebaseUid = req.params.id;
   const { name, address, organizationName, photoURL } = req.body;
 
   try {
     const updatedUser = await User.findByIdAndUpdate(
-      userId,
+      { firebaseUid: firebaseUid },
       { name, address, organizationName, photoURL },
       { new: true, runValidators: true }
     );
