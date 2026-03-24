@@ -99,7 +99,7 @@ export const updateUser = async (req, res) => {
   const { name, address, organizationName, photoURL } = req.body;
 
   try {
-    const updatedUser = await User.findByIdAndUpdate(
+    const updatedUser = await User.findOneAndUpdate(
       { firebaseUid: firebaseUid },
       { name, address, organizationName, photoURL },
       { new: true, runValidators: true }
